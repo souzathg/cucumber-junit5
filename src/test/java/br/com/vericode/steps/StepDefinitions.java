@@ -8,21 +8,25 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import okhttp3.Call;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class StepDefinitions {
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
     String baseURL;
+    Response response;
+    OkHttpClient client = new OkHttpClient();
 
     @Given("the application is available at {string}")
     public void theApplicationIsAvailableAt(String url) throws IOException {
         baseURL = url;
 
-        OkHttpClient client = new OkHttpClient();
-
         Request req = new Request.Builder()
-                .url("http://" + baseURL + "/health")
+                .url(baseURL + "/health")
                 .get()
                 .build();
 
@@ -36,14 +40,32 @@ public class StepDefinitions {
     }
 
     @When("I send a payload containing two numbers: {double} and {double}, to {string}")
-    public void iSendAPayloadContainingTwoNumbersAndTo(Double double1, Double double2, String string) {
+    public void iSendAPayloadContainingTwoNumbersAndTo(Double num1, Double num2, String path) throws IOException {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        // throw new io.cucumber.java.PendingException();
+        String json = "{\"num1\":" + num1 + ", \"num2\":" + num2 + "}";
+        RequestBody body = RequestBody.create(json, JSON);
+
+        Request req = new Request.Builder()
+                .url(baseURL + path)
+                .post(body)
+                .build();
+
+        Call call = client.newCall(req);
+        response = call.execute();
+
+        assertEquals(200, response.code());
+
     }
 
     @Then("I should receive a response of {double}")
-    public void iShouldReceiveAResponseOf(Double double1) {
+    public void iShouldReceiveAResponseOf(Double result) throws IOException {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        // throw new io.cucumber.java.PendingException();
+
+        String responseBody = response.body().string();
+        Double responseDouble = Double.parseDouble(responseBody);
+
+        assertEquals(result, responseDouble, "The actual value differs from the expected");
     }
 }
