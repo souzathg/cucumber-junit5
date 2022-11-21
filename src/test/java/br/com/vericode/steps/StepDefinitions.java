@@ -35,8 +35,8 @@ public class StepDefinitions {
 
         String responseBody = res.body().string();
 
-        assertEquals(res.code(), 200, "The status code was different than 200");
-        assertEquals(responseBody, "The application is running.", "The message was different than expected.");
+        assertEquals(200, res.code(), "The status code was different than 200");
+        assertEquals("The application is running", responseBody, "The message was different than expected.");
     }
 
     @When("I send a payload containing two numbers: {double} and {double}, to {string}")

@@ -24,6 +24,6 @@ public class CalculatorService {
     }
 
     public Mono<ServerResponse> healthCheck(ServerRequest request) {
-        return ServerResponse.status(HttpStatus.OK).bodyValue("The application is running.");
+        return ServerResponse.status(HttpStatus.OK).bodyValue("The application is running");
     }
 }
