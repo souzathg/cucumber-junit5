@@ -20,8 +20,8 @@ Endpoints de operações.
 Para esses endpoints o payload é conforme segue:
 ```json
 {
-  "num1": double,
-  "num2": double
+  "num1": 5.0, // double 
+  "num2": 5.0 // double
 }
 ```
 
