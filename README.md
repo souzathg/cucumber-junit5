@@ -18,7 +18,7 @@ Endpoints de operações.
 - POST `/divide`
 
 Para esses endpoints o payload é conforme segue:
-```json
+```javascript
 {
   "num1": 5.0, // double 
   "num2": 5.0 // double
