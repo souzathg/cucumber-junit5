@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -68,4 +69,5 @@ public class StepDefinitions {
 
         assertEquals(result, responseDouble, "The actual value differs from the expected");
     }
+
 }
