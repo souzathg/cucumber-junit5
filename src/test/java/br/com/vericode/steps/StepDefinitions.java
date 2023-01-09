@@ -47,8 +47,6 @@ public class StepDefinitions {
 
     @When("I send a payload containing two numbers: {double} and {double}, to {string}")
     public void iSendAPayloadContainingTwoNumbersAndTo(Double num1, Double num2, String path) throws IOException {
-        // Write code here that turns the phrase above into concrete actions
-        // throw new io.cucumber.java.PendingException();
         String json = "{\"num1\":" + num1 + ", \"num2\":" + num2 + "}";
         RequestBody body = RequestBody.create(json, JSON);
 
@@ -66,9 +64,6 @@ public class StepDefinitions {
 
     @Then("I should receive a response of {double}")
     public void iShouldReceiveAResponseOf(Double result) throws IOException {
-        // Write code here that turns the phrase above into concrete actions
-        // throw new io.cucumber.java.PendingException();
-
         String responseBody = response.body().string();
         Double responseDouble = Double.parseDouble(responseBody);
 
