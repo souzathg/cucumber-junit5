@@ -1,8 +1,9 @@
 package br.com.vericode;
 
+import io.cucumber.junit.platform.engine.Cucumber;
 import org.junit.platform.suite.api.*;
 
 @Suite
-@IncludeEngines("cucumber")
 @SelectClasspathResource("br/com/vericode")
-public class RunCucumberTest { }
+public class RunCucumberTest {
+}
