@@ -4,7 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 
-import io.cucumber.java.en.And;
+import br.com.vericode.Application;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -21,6 +22,11 @@ public class StepDefinitions {
     String baseURL;
     Response response;
     OkHttpClient client = new OkHttpClient();
+
+    @Before
+    public void runApplication() {
+        Application.main();
+    }
 
     @Given("the application is available at {string}")
     public void theApplicationIsAvailableAt(String url) throws IOException {
