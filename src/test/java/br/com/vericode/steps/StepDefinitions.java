@@ -1,20 +1,16 @@
 package br.com.vericode.steps;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.io.IOException;
-
 import br.com.vericode.Application;
-import io.cucumber.java.Before;
+import io.cucumber.java.AfterAll;
+import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import okhttp3.Call;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import okhttp3.*;
+
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StepDefinitions {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -23,8 +19,8 @@ public class StepDefinitions {
     Response response;
     OkHttpClient client = new OkHttpClient();
 
-    @Before
-    public void runApplication() {
+    @BeforeAll
+    public static void runApplication() {
         Application.main();
     }
 
@@ -40,7 +36,10 @@ public class StepDefinitions {
         Call call = client.newCall(req);
         Response res = call.execute();
 
-        String responseBody = res.body().string();
+        String responseBody = null;
+        if (res.body() != null) {
+            responseBody = res.body().string();
+        }
 
         assertEquals(200, res.code(), "The status code was different than 200");
         assertEquals("The application is running", responseBody, "The message was different than expected.");
@@ -76,4 +75,8 @@ public class StepDefinitions {
         assertEquals(result, responseDouble, "The actual value differs from the expected");
     }
 
+    @AfterAll
+    public static void afterAll() {
+        System.out.println();
+    }
 }
